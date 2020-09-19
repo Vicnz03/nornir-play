@@ -120,7 +120,7 @@ if __name__ == '__main__':
     if vars_dict['custom_def']:
         task_devices.run(task=vars_dict['nornir_task'])
     elif mode == 'jsnapy_pre':
-        task_devices.run(task=jsnapy_pre)
+        task_devices.run(task=jsnapy_pre, jsnapy_test= vars_dict['jsnapy_test'])
     elif mode == 'jsnapy_post':
         task_devices.run(task=jsnapy_post)
     elif mode == 'rpc':

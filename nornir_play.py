@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
     # Get&Check vars from playbook
     vars_dict, task_devices = validator(playbook, nr)
-    task_devices = nr.filter( name = vars_dict['device'])
+    task_devices = nr.filter(filter_func=lambda h: h.name in vars_dict['device'])
     playbook_summary = vars_dict['playbook_summary']
     device = vars_dict['device']
     mode = vars_dict['mode']

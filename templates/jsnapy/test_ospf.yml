@@ -1,0 +1,9 @@
+test_command_ospf_neighbors:
+    - command: show ospf neighbor instance all
+    - iterate:
+        xpath: '//ospf-neighbor-information-all/ospf-instance-neighbor/ospf-neighbor'
+        id: './interface-name'
+        tests:
+          - no-diff: ospf-neighbor-state
+            err: "Test failed!! OSPF neighbour state has changed from <{{pre['ospf-neighbor-state']}}> to <{{post['ospf-neighbor-state']}}>"
+            info: "Test succeeded!! OSPF neighbour state is <{{post['ospf-neighbor-state']}}>"

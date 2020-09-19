@@ -1,0 +1,93 @@
+---
+# hosts.yaml file
+RTR80a:
+  hostname: 192.168.1.113
+  groups:
+    - juniper
+    - RTR
+
+RTR80b:
+  hostname: 192.168.1.114
+  groups:
+    - juniper
+    - RTR   
+
+RTR480a:
+  hostname: 192.168.1.111
+  groups:
+    - juniper
+    - RTR   
+
+RTR480b:
+  hostname: 192.168.1.112
+  groups:
+    - juniper
+    - RTR   
+
+RTR204a:
+  hostname: 192.168.1.116
+  groups:
+    - juniper
+    - RTR   
+
+ptx:
+  hostname: 192.168.1.199
+  groups:
+    - juniper
+    - PTX  
+
+ACX01:
+  hostname: 192.168.1.30
+  groups:
+    - juniper
+    - ACX  
+
+ACX02:
+  hostname: 192.168.1.31
+  groups:
+    - juniper
+    - ACX   
+
+ACX03:
+  hostname: 192.168.1.32
+  groups:
+    - juniper
+    - ACX
+  data:
+    description: test 
+
+QFX01:
+  hostname: 192.168.1.37
+  groups:
+    - juniper
+    - QFX
+
+QFX02:
+  hostname: 192.168.1.38
+  groups:
+    - juniper
+    - QFX
+
+ex4550:
+  hostname: 192.168.1.115
+  groups:
+    - juniper
+    - SWC  
+vrr:
+  hostname: 192.168.1.11
+  groups:
+    - juniper
+    - RTR
+    - RR
+
+SRX210:
+  hostname: 192.168.1.28
+  groups:
+    - juniper
+    - SRX
+
+ex4200:
+  hostname: 192.168.1.110
+  groups:
+    - juniper
+    - SWC   

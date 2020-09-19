@@ -1,0 +1,19 @@
+test_command_vpls_connections:
+  - command: show vpls connections
+  - iterate:
+      xpath: '//vpls-connection-information/instance'
+      id: './instance-name'
+      tests:
+        - no-diff: reference-site/connection/connection-status
+          err: "Test failed!! VPLS connection state has changed from <{{pre['reference-site/connection/connection-status']}}> to <{{post['reference-site/connection/connection-status']}}>"
+          info: "Test succeeded!! VPLS connection state is still <{{post['reference-site/connection/connection-status']}}>"
+
+test_command_vpls_mac_table_count:
+  - command: show vpls mac-table count
+  - iterate:
+      xpath: '//l2ald-rtb-mac-count/l2ald-rtb-mac-count-entry'
+      id: './rtb-name'
+      tests:
+        - delta: rtb-mac-count, 40%
+          err: "Test failed!! Active mac count is outide delta of 40%. It has changed from <{{pre['rtb-mac-count']}}> to <{{post['rtb-mac-count']}}>"
+          info: "Test succeeded!! Active route count is within 40% delta. Pre-value was <{{pre['rtb-mac-count']}}> and is now <{{post['rtb-mac-count']}}>"

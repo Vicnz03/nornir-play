@@ -1,0 +1,9 @@
+test_command_ccc:
+    - command: show connections
+    - iterate:
+        xpath: '//ccc-information/ccc-connection'
+        id: './ccc-connection-name'
+        tests:
+          - no-diff: ccc-connection-status
+            err: "Test failed!! CCC connection state has changed from <{{pre['ccc-connection-status']}}> to <{{post['ccc-connection-status']}}>"
+            info: "Test succeeded!! CCC connection state is still <{{post['ccc-connection-status']}}>"

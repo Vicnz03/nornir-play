@@ -1,0 +1,40 @@
+test_mpls_lsp_ingress:
+  - command: 'show mpls lsp ingress'
+  - iterate:
+      xpath: '//mpls-lsp-information/rsvp-session-data'
+      id: './session-type'
+      tests:
+        - no-diff: count
+          err: "Test Failed!! Ingress LSP count changed from {{pre['count']}} to {{post['count']}}"
+          info: "Test succeeded!! Ingress LSP count remains the same."
+
+test_mpls_rsvp_ingress:
+  - command: show mpls lsp ingress
+  - iterate:
+      xpath: '//mpls-lsp-information/rsvp-session-data/rsvp-session'
+      id: './mpls-lsp/name'
+      tests:
+        - no-diff: ./mpls-lsp/name
+          err: "Test Failed!! Name has changed from {{pre['name']}} to {{post['name']}}"
+          info: "Test succeeded!! RSVP Name has not changed."
+        
+        - no-diff: ./mpls-lsp/lsp-state
+          err: "Test Failed!! lsp-state has changed from {{pre['lsp-state']}} to {{post['lsp-state']}}"
+          info: "Test succeeded!! RSVP lsp-state has not changed."
+
+        - no-diff: ./mpls-lsp/source-address
+          err: "Test Failed!! source-address has changed from {{pre['source-address']}} to {{post['source-address']}}"
+          info: "Test succeeded!! RSVP source-address has not changed."
+
+        - no-diff: ./mpls-lsp/destination-address
+          err: "Test Failed!! destination-address has changed from {{pre['destination-address']}} to {{post['destination-address']}}"
+          info: "Test succeeded!! RSVP destination-address has not changed."
+
+test_mpls_rsvp_egress:
+  - command: show mpls lsp egress
+  - item:
+      xpath: '//mpls-lsp-information/rsvp-session-data'
+      tests:
+        - delta: count, 90%
+          err: "Test Failed!! Egress lsp count has changed from {{pre['count']}} to {{post['count']}}"
+          info: "Test succeeded!! Egress lsp count is within delta."

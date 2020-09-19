@@ -1,0 +1,10 @@
+test_l2tp_connections:
+    - command: show l2vpn connections
+    - iterate:
+        xpath: '//l2vpn-connection-information/instance'
+        id: './instance-name'
+        tests:
+          - no-diff: connection-status
+            err: "Test failed!! L2VPN connection-status has changed from <{{pre['connection-status']}}> to <{{post['connection-status']}}>"
+            info: "Test succeeded!! L2VPN connection-status is still <{{post['connection-status']}}>"
+  

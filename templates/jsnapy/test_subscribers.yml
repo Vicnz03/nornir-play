@@ -1,0 +1,9 @@
+test_subscribers_count:
+    - command: show subscribers count
+    - item:
+        xpath: '//subscribers-information/subscriber'
+        tests:
+          - is-gt: number-of-subscribers, 50
+            err: "Test failed!! Number of subs is lower than require 50. We had <{{pre['number-of-subscribers']}}>, we have <{{post['number-of-subscribers']}}>"
+            info: "Test Succeeded!! Number of subs exceeds limit of 50. We have <{{post['number-of-subscribers']}}>"
+  

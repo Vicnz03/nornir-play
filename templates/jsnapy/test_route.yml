@@ -1,0 +1,13 @@
+test_command_inet3:
+    - command: show route table inet.3
+    - item:
+        xpath: '//route-information/route-table'
+        tests:
+          - is-gt: active-route-count, 1
+            err: "Test failed!! inet3.0 active route count is <= 1, it is: <{{post['active-route-count']}}>"
+            info: "Test succeeded!! inet3.0 active route count is: <{{post['active-route-count']}}>"
+  
+          - no-diff: active-route-count
+            err: "Test failed!! inet3.0 active route count has changed from <{{pre['active-route-count']}}> to <{{post['active-route-count']}}>"
+            info: "Test succeeded!! inet3.0 active route count is the same pre and post and is <{{post['active-route-count']}}>"
+  

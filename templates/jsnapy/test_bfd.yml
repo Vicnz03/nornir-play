@@ -1,0 +1,9 @@
+test_bfd_session:
+    - command: show bfd session
+    - iterate:
+        xpath: '//bfd-session-information/bfd-session'
+        id: './session-neighbor'
+        tests:
+          - no-diff: session-state
+            err: "Test Failed!! BFD Session state has changed from {{pre['session-state']}} to {{post['session-state']}}"
+            info: "Test succeeded!! BFD session state remains the same pre/post: {{post['session-state']}}"

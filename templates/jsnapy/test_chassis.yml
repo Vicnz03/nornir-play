@@ -1,0 +1,164 @@
+test_chassis_alarms:
+  - command: show chassis alarms
+  - item:
+      xpath: '//alarm-information/alarm-summary'
+      tests: 
+        - exists: no-active-alarms, ""
+          err: "Test failed!! Active alarm's are present! <{{post['//alarm-information/alarm-summary']}}>"
+          info: "Test succeeded!! No active alarms! <{{post['//alarm-information/alarm-summary']}}>"    
+
+test_system_alarms:
+  - command: show system alarms
+  - item:
+      xpath: '//alarm-information/alarm-summary'
+      tests: 
+        - exists: no-active-alarms, ""
+          err: "Test failed!! Active alarm's are present! <{{post['//alarm-information/alarm-summary']}}>"
+          info: "Test succeeded!! No active alarms! <{{post['//alarm-information/alarm-summary']}}>"    
+
+test_chassis_hardware:
+  - command: show chassis hardware
+  - iterate:
+      xpath: '//chassis-inventory/chassis/chassis-module'
+      id: './name'
+      tests:
+        - exists: name
+          err: "Test failed!! Name has changed <{{pre['name']}}> to <{{post['name']}}>"
+          info: "Test succeeded!! Name is the same! <{{pre['name']}}> to <{{post['name']}}>"
+
+        - no-diff: version
+          err: "Test failed!! Version has changed <{{pre['version']}}> to <{{post['version']}}>"
+          info: "Test succeeded!! Version is the same! <{{pre['version']}}> to <{{post['version']}}>" 
+
+        - no-diff: part-number
+          err: "Test failed!! part-number has changed <{{pre['part-number']}}> to <{{post['part-number']}}>"
+          info: "Test succeeded!! part-number is the same! <{{pre['part-number']}}> to <{{post['part-number']}}>"
+
+        - no-diff: serial-number
+          err: "Test failed!! serial-number has changed <{{pre['serial-number']}}> to <{{post['serial-number']}}>"
+          info: "Test succeeded!! serial-number is the same! <{{pre['serial-number']}}> to <{{post['serial-number']}}>"   
+  - iterate:
+      xpath: '//chassis-inventory/chassis/chassis-module/chassis-sub-module'
+      id: './name , ../name'
+      tests:
+        - no-diff: name
+          err: "Test Failed!! Sub-module {{id_1}} of module {{id_2}} has changed from <{{pre['name']}}> to <{{post['name']}}>"
+          info: "Checking sub-module Names..."
+        
+        - no-diff: version
+          err: "Test Failed!! Sub-module {{id_1}} of module {{id_2}} has changed from <{{pre['version']}}> to <{{post['version']}}>"
+          info: "Checking sub-module versions..."
+
+        - no-diff: part-number
+          err: "Test Failed!! Sub-module {{id_1}} of module {{id_2}} has changed from <{{pre['part-number']}}> to <{{post['part-number']}}>"
+          info: "Checking sub-module part-numbers..."
+
+        - no-diff: serial-number
+          err: "Test Failed!! Sub-module {{id_1}} of module {{id_2}} has changed from <{{pre['serial-number']}}> to <{{post['serial-number']}}>"
+          info: "Checking sub-module serial-numbers..."
+
+        - no-diff: description
+          err: "Test Failed!! Sub-module {{id_1}} of module {{id_2}} has changed from <{{pre['description']}}> to <{{post['description']}}>"
+          info: "Checking sub-module descriptions..."
+  - iterate:
+      xpath: '//chassis-inventory/chassis/chassis-module/chassis-sub-module/chassis-sub-sub-module'
+      id: './name , ../name , ../../name'
+      tests:
+        - no-diff: name
+          err: "Test Failed!! Sub-sub-module {{id_1}} of sub-module {{id_2}} of module {{id_3}} has changed from <{{pre['name']}}> to <{{post['name']}}>"
+          info: "Checking sub-sub-module Names..."
+        
+        - no-diff: version
+          err: "Test Failed!! Sub-sub-module {{id_1}} of sub-module {{id_2}} of module {{id_3}} has changed from <{{pre['version']}}> to <{{post['version']}}>"
+          info: "Checking sub-sub-module versions..."
+
+        - no-diff: part-number
+          err: "Test Failed!! Sub-sub-module {{id_1}} of sub-module {{id_2}} of module {{id_3}} has changed from <{{pre['part-number']}}> to <{{post['part-number']}}>"
+          info: "Checking sub-sub-module part-numbers..."
+
+        - no-diff: serial-number
+          err: "Test Failed!! Sub-sub-module {{id_1}} of sub-module {{id_2}} of module {{id_3}} has changed from <{{pre['serial-number']}}> to <{{post['serial-number']}}>"
+          info: "Checking sub-sub-module serial-numbers..."
+
+        - no-diff: description
+          err: "Test Failed!! Sub-sub-module {{id_1}} of sub-module {{id_2}} of module {{id_3}} has changed from <{{pre['description']}}> to <{{post['description']}}>"
+          info: "Checking sub-sub-module descriptions..."
+
+test_chassis_fpc_pic_status:
+  - command: show chassis fpc pic-status
+  - iterate:
+      xpath: '//fpc-information/fpc'
+      id: './slot'
+      tests:
+        - no-diff: slot
+          err: "Test failed!! Slot has changed <{{pre['slot']}}> to <{{post['slot']}}>"
+          info: "Test succeeded!! Slot is the same! <{{pre['slot']}}> to <{{post['slot']}}>"
+
+        - no-diff: state
+          err: "Test failed!! State has changed <{{pre['state']}}> to <{{post['state']}}>"
+          info: "Test succeeded!! State is the same! <{{pre['state']}}> to <{{post['state']}}>"
+
+        - no-diff: description
+          err: "Test failed!! Description has changed <{{pre['description']}}> to <{{post['description']}}>"
+          info: "Test succeeded!! Description is the same! <{{pre['description']}}> to <{{post['description']}}>"
+  - iterate:
+      xpath: '//fpc-information/fpc/pic'
+      id: './pic-slot'
+      tests:
+        - no-diff: pic-slot
+          err: "Test failed!! Pic-slot has changed <{{pre['pic-slot']}}> to <{{post['pic-slot']}}>"
+          info: "Test succeeded!! Pic-slot is the same! <{{pre['pic-slot']}}> to <{{post['pic-slot']}}>"
+
+        - no-diff: pic-state
+          err: "Test failed!! Pic-state has changed <{{pre['pic-state']}}> to <{{post['pic-state']}}>"
+          info: "Test succeeded!! Pic-state is the same! <{{pre['pic-state']}}> to <{{post['pic-state']}}>"
+
+        - no-diff: pic-type
+          err: "Test failed!! Pic-type has changed <{{pre['pic-type']}}> to <{{post['pic-type']}}>"
+          info: "Test succeeded!! Pic-type is the same! <{{pre['pic-type']}}> to <{{post['pic-type']}}>"
+
+test_environmental_status_pem0:
+  - command: show chassis environment
+  - item:
+      xpath: '//environment-information/environment-item[name="PEM 0"]'
+      tests:
+        - is-in: status, OK, Online
+          err: "Test failed!! Status of {{post['name']}} is {{post['status']}}"
+          info: "Test passed!! Status of {{post['name']}} is {{post['status']}}" 
+
+test_environmental_status_pem1:
+  - command: show chassis environment
+  - item:
+      xpath: '//environment-information/environment-item[name="PEM 1"]'
+      tests:
+        - is-in: status, OK, Online
+          err: "Test failed!! Status of {{post['name']}} is {{post['status']}}"
+          info: "Test passed!! Status of {{post['name']}} is {{post['status']}}" 
+        
+test_environmental_status_temp:
+  - command: show chassis environment
+  - iterate:
+      xpath: '//environment-information/environment-item[class="Temp"]'
+      tests:              
+        - no-diff: status
+          err: "Test failed!! Status of {{post['name']}} is {{post['status']}}>"
+          info: "Test passed!! Status of {{post['name']}} is {{post['status']}}"          
+
+test_environmental_status_fans:
+  - command: show chassis environment
+  - iterate:
+      xpath: '//environment-information/environment-item[class="Fans"]'
+      tests:              
+        - is-equal: status, OK
+          err: "Test failed!! Status of {{post['name']}} is {{post['status']}}>"
+          info: "Test passed!! Status of {{post['name']}} is {{post['status']}}"  
+
+test_krt_queue:
+  - command: show krt queue
+  - iterate:
+      xpath: '//krt-queue-information/krt-queue'
+      id: './krtq-type'
+      tests:
+        - is-equal: krtq-queue-length, 0
+          err: "Test Failed!! krtq-queue-length has changed from {{pre['krtq-queue-length']}} to {{post['krtq-queue-length']}}"
+          info: "Test succeeded!! krtq-queue-length remains the same pre/post: {{post['krtq-queue-length']}}"

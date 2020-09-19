@@ -1,0 +1,18 @@
+test_command_bgp_sum:
+  - command: show bgp summary
+  - iterate:
+      xpath: '//bgp-information/bgp-peer'
+      id: './peer-address'
+      tests:
+        - no-diff: peer-state
+          err: "Test failed!! BGP neighbour state has changed from <{{pre['peer-state']}}> to <{{post['peer-state']}}>"
+          info: "Test succeeded!! BGP neighbour state is still <{{post['peer-state']}}>"
+
+test_command_bgp:
+  - command: show bgp neighbor 111.69.0.254
+  - item:
+      xpath: '//bgp-information/bgp-peer'
+      tests:
+        - is-equal: peer-state, Established
+          err: "Test failed!! peer is not Established, it is: <{{post['peer-state']}}>"
+          info: "Test succeeded!! peer state is: <{{post['peer-state']}}>"

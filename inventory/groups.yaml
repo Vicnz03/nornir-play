@@ -1,0 +1,69 @@
+---
+# groups.yaml file
+
+network_device: {}
+
+
+SRX: 
+  groups: 
+    - network_device
+    
+FW: 
+  groups: 
+    - network_device
+
+ACX: 
+  groups: 
+    - network_device
+
+MX: 
+  groups: 
+    - network_device
+    
+radius:
+  groups: 
+    - network_device
+
+RTR: 
+  groups: 
+    - network_device
+    
+RR: 
+  groups: 
+    - network_device
+
+QFX: 
+  groups: 
+    - network_device
+  data: 
+    role: spine
+
+PTX: 
+  groups: 
+    - network_device
+  data: 
+    role: leaf
+
+SWC: 
+  groups: 
+    - network_device
+  data: 
+    role: leaf
+    
+VRR: 
+  groups: 
+    - network_device
+  data: 
+    role: leaf
+
+juniper: 
+  platform: junos
+
+common_settings: 
+  data: 
+    snmp_community: public 
+    grpc_port: 32768
+    name_servers:
+      - 8.8.8.8
+      - 8.8.8.4
+

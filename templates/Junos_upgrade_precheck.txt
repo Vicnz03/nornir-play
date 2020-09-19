@@ -1,0 +1,39 @@
+show rsvp session | match "[0-9]{1,3}-to-[0-9]{1,3}-" | except "A-111-69-0-" | except -B
+show chassis alarms 
+show system alarms 
+show chassis hardware  
+show chassis fpc pic-status 
+show chassis routing-engine 
+show chassis environment 
+show system boot-messages 
+show interfaces * | grep "physical interface" | grep up 
+show interfaces * extensive | grep "physical interface|error"
+show isis adjacency 
+show isis hostname | count 
+show mpls lsp | grep "sessions|displayed" 
+show rsvp session ingress |no-more 
+show rsvp session egress | no-more 
+show rsvp session terse 
+show bgp summary | grep "Estab" 
+show ospf neighbor instance all | grep "full|instance" 
+show rip neighbor instance all | grep "up|instance" 
+show route summary 
+show bfd session summary 
+show krt queue 
+show pfe statistics error 
+show bridge domain brief 
+show bridge mac-table | no-more 
+show l2vpn connections 
+show vpls connections 
+show vpls mac-table 
+show vpls mac-table | count 
+show vpls mac-table | grep "lsi|ge-|xe-|et-|lt-" | count 
+show connections 
+show system snapshot 
+show subscribers count 
+show interfaces descriptions | match "Subscriber Port" 
+show subscribers summary 
+show subscribers summary all
+show configuration groups BNG | display set | count
+show system storage | grep /var 
+file list /var/tmp

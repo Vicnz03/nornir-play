@@ -1,0 +1,35 @@
+test_rsvp_terse_ingress:
+  - command: show rsvp session terse ingress
+  - iterate:
+      xpath: '//rsvp-session-information/rsvp-session-data'
+      id: './session-type'
+      tests:
+        - delta: count, 90%
+          err: "Test Failed!! count has changed from {{pre['count']}} to {{post['count']}}"
+          info: "Test succeeded!! RSVP count has not changed."
+        
+        - delta: display-count, 90%
+          err: "Test Failed!! display-count has changed from {{pre['display-count']}} to {{post['display-count']}}"
+          info: "Test succeeded!! RSVP display-count has not changed."
+
+        - delta: up-count, 90%
+          err: "Test Failed!! up-count has changed from {{pre['up-count']}} to {{post['up-count']}}"
+          info: "Test succeeded!! RSVP up-count has not changed."
+
+test_rsvp_terse_egress:
+  - command: show rsvp session terse egress
+  - iterate:
+      xpath: '//rsvp-session-information/rsvp-session-data'
+      id: './session-type'
+      tests:
+        - delta: count, 90%
+          err: "Test Failed!! count has changed from {{pre['count']}} to {{post['count']}}"
+          info: "Test succeeded!! RSVP count has not changed."
+        
+        - delta: display-count, 90%
+          err: "Test Failed!! display-count has changed from {{pre['display-count']}} to {{post['display-count']}}"
+          info: "Test succeeded!! RSVP display-count has not changed."
+
+        - delta: up-count, 90%
+          err: "Test Failed!! up-count has changed from {{pre['up-count']}} to {{post['up-count']}}"
+          info: "Test succeeded!! RSVP up-count has not changed."

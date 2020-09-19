@@ -1,0 +1,14 @@
+test_command_isis:
+    - command: show isis adjacency
+    - iterate:
+        xpath: '//isis-adjacency-information/isis-adjacency'
+        id: './interface-name'
+        tests:
+          - is-equal: adjacency-state, Up
+            err: "Test failed!! isis session state is not operational, it is: <{{post['adjacency-state']}}>"
+            info: "Test succeeded!! isis session state is: <{{post['adjacency-state']}}>"
+  
+          - no-diff: adjacency-state
+            err: "Test failed!! isis session operation state has changed from <{{pre['adjacency-state']}}> to <{{post['adjacency-state']}}>"
+            info: "Test succeeded!! isis session state is the same pre and post and is <{{post['adjacency-state']}}>"
+  

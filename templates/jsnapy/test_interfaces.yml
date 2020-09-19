@@ -1,0 +1,14 @@
+test_command_interfaces:
+    - command: 'show interfaces "[gxe][et]"-* media terse'
+    - iterate:
+        xpath: '//interface-information/physical-interface'
+        id: './name'
+        tests:
+          - no-diff: admin-status
+            err: "Test failed!! admin status has changed from <{{pre['admin-status']}}> to <{{post['admin-status']}}>"
+            info: "Test succeeded!! admin-status is the same pre and post and is <{{post['admin-status']}}>"
+  
+          - no-diff: oper-status
+            err: "Test failed!! operational status has changed from <{{pre['oper-status']}}> to <{{post['oper-status']}}>"
+            info: "Test succeeded!! operational status is the same pre and post and is <{{post['oper-status']}}>"
+  

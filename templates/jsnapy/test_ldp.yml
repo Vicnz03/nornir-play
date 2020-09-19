@@ -1,0 +1,13 @@
+test_command_ldp:
+    - command: show ldp session
+    - iterate:
+        xpath: '//ldp-session-information/ldp-session'
+        id: './ldp-neighbor-address'
+        tests:
+          - is-equal: ldp-session-state, Operational
+            err: "Test failed!! ldp session state is not operational, it is: <{{post['ldp-session-state']}}>"
+            info: "Test succeeded!! ldp session state is: <{{post['ldp-session-state']}}>"
+  
+          - no-diff: ldp-session-state
+            err: "Test failed!! ldp session operation state has changed from <{{pre['ldp-session-state']}}> to <{{post['ldp-session-state']}}>"
+            info: "Test succeeded!! ldp session state is the same pre and post and is <{{post['ldp-session-state']}}>"
